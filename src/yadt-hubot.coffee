@@ -17,12 +17,12 @@ YadtBroadcaster = require './yadt-broadcaster'
 CmdHandler = require './ybc-cmd-handler'
 
 url = process.env.YADT_BROADCASTER_URL
-topicsFile = process.env.YADT_BROADCASTER_TOPICS
+topicsFile = process.env.YADT_BROADCASTER_TOPICS or '../test/yadt-topics.coffee'
 
 module.exports = (robot, yadtBroadcaster) ->
   if url == undefined or topicsFile == undefined
     console.warn("Configuration not valid. " +
-                 "YADT_BROADCASTER_URL:'#{url}' YADT_BROADCASTER_TOPICS:'#{targets}'")
+                 "YADT_BROADCASTER_URL:'#{url}' YADT_BROADCASTER_TOPICS:'#{topics}'")
   else
     handlers = [
       new CmdHandler(robot)

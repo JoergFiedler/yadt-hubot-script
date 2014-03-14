@@ -1,1 +1,1 @@
-exports.topics = ['topic_1', 'topic_2']
+exports.topics = ['devi18n']
