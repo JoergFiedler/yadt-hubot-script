@@ -1,0 +1,1 @@
+exports.topics = ['topic_1', 'topic_2']

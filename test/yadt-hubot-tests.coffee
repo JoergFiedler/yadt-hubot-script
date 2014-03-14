@@ -6,6 +6,9 @@ expect = chai.expect
 
 describe 'yadt-hubot script', ->
   beforeEach ->
+    process.env.YADT_BROADCASTER_URL = 'any_url'
+    process.env.YADT_BROADCASTER_TOPICS = '../test/yadt-topics'
+
     @robot = sinon.mock()
     @yadtBroadcaster =
       setHandlers: sinon.spy()

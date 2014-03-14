@@ -2,9 +2,10 @@ Log = require "log"
 wamp = require "cupholder"
 
 class YadtBroadcaster
-  constructor: ->
+  constructor: (url, topics) ->
     @logger = new Log process.env.HUBOT_LOG_LEVEL or 'info'
-    @url = 'ws://yadtbroadcaster.rz.is24.loc:8081/'
+    @url = url
+    @topics = topics or []
     @ws_port = 8081
     @handlers = []
     @logger.debug('Constructor called.')
@@ -13,11 +14,10 @@ class YadtBroadcaster
     @handlers = handlers
 
   registerTargets: (client) ->
-    topics = ['devi18n', 'devi18n02', 'tuvi18n', 'proi18n']
-    for topic in topics
+    for topic in @topics
       client.subscribe topic
 
-    @logger.debug 'Subscribed to topics:', topics
+    @logger.debug 'Subscribed to topics:', @topics
 
   onEvent: (uri, event) ->
     for handler in @handlers

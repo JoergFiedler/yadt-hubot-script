@@ -13,15 +13,23 @@
 #
 # Author:
 #   JoergFiedler[@<org>]
-
 YadtBroadcaster = require './yadt-broadcaster'
 CmdHandler = require './ybc-cmd-handler'
 
-module.exports = (robot, yadtBroadcaster) ->
-  handlers = [
-    new CmdHandler(robot)
-  ]
+url = process.env.YADT_BROADCASTER_URL
+topicsFile = process.env.YADT_BROADCASTER_TOPICS
 
-  ybc = yadtBroadcaster or new YadtBroadcaster()
-  ybc.setHandlers(handlers)
-  ybc.connect()
+module.exports = (robot, yadtBroadcaster) ->
+  if url == undefined or topicsFile == undefined
+    console.warn("Configuration not valid. " +
+                 "YADT_BROADCASTER_URL:'#{url}' YADT_BROADCASTER_TOPICS:'#{targets}'")
+  else
+    handlers = [
+      new CmdHandler(robot)
+    ]
+
+    topics = require(topicsFile)
+
+    ybc = yadtBroadcaster or new YadtBroadcaster(url, topics.topics)
+    ybc.setHandlers(handlers)
+    ybc.connect()
