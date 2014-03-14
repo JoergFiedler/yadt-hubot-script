@@ -8,7 +8,6 @@ class YadtBroadcaster
     @topics = topics or []
     @ws_port = 8081
     @handlers = []
-    @logger.debug('Constructor called.')
 
   setHandlers: (handlers) ->
     @handlers = handlers
@@ -17,14 +16,14 @@ class YadtBroadcaster
     for topic in @topics
       client.subscribe topic
 
-    @logger.debug 'Subscribed to topics:', @topics
+    @logger.info 'Subscribed to topics:', @topics
 
   onEvent: (uri, event) ->
     for handler in @handlers
       handler.handleEvent(event)
 
   connect: ->
-    @logger.debug('Connect to: ', @url)
+    @logger.info('Connect to: ', @url)
     ybc = @
     client = new wamp.Client @url
     client.on "open", ->
