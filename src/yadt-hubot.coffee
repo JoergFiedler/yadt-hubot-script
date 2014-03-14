@@ -14,5 +14,14 @@
 # Author:
 #   JoergFiedler[@<org>]
 
-module.exports = (robot) ->
-  true
+YadtBroadcaster = require './yadt-broadcaster'
+CmdHandler = require './ybc-cmd-handler'
+
+module.exports = (robot, yadtBroadcaster) ->
+  handlers = [
+    new CmdHandler(robot)
+  ]
+
+  ybc = yadtBroadcaster or new YadtBroadcaster()
+  ybc.setHandlers(handlers)
+  ybc.connect()
