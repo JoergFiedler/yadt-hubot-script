@@ -1,4 +1,4 @@
-class ChannelSelector
+class RoomSelector
 
   constructor: ->
     @devPattern = /^dev.*/i
@@ -19,4 +19,4 @@ class ChannelSelector
 
     return envelope
 
-module.exports = ChannelSelector
+module.exports = RoomSelector

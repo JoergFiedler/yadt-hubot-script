@@ -1,17 +1,17 @@
 Log = require 'log'
-ChannelSelector = require('./channel-selector')
+RoomSelector = require('./room-selector')
 
 class CmdEventHandler
   constructor: (robot, channelSelector) ->
     @robot = robot
-    @channelSelector = channelSelector or new ChannelSelector()
+    @roomSelector = channelSelector or new RoomSelector()
     @logger = new Log process.env.HUBOT_LOG_LEVEL or 'info'
 
   createMessage: (event) ->
     "Yadt action '#{event.cmd}' for target '#{event.target}' has been '#{event.state}'."
 
   sendResponse: (event) ->
-    envelope = @channelSelector.createEnvelope(event.target)
+    envelope = @roomSelector.createEnvelope(event.target)
     if envelope
       @robot.send envelope, @createMessage(event)
     else
