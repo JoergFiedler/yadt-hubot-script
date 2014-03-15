@@ -1,6 +1,6 @@
 Log = require 'log'
 YadtBroadcaster = require './yadt-broadcaster'
-CmdHandler = require './yadt-cmd-event-handler'
+CmdEventHandler = require './yadt-cmd-event-handler'
 
 class HubotYadt
   constructor: (robot) ->
@@ -17,7 +17,7 @@ class HubotYadt
 
   createHandler: ->
     [
-      new CmdHandler(@robot)
+      new CmdEventHandler(@robot)
     ]
 
   initYadtBroadcaster: ->
