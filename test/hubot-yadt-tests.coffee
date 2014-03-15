@@ -6,11 +6,11 @@ sinon = require 'sinon'
 
 describe 'yadt-hubot script', ->
   beforeEach ->
-    YadtHubot = require '../src/hubot-yadt'
+    HubotYadt = require '../src/hubot-yadt'
     robot = sinon.mock()
-    @yadtHubot = sinon.createStubInstance(YadtHubot)
+    @hubotYadt = sinon.createStubInstance(HubotYadt)
     @constructorMock = sinon.stub()
-    @constructorMock.returns(@yadtHubot)
+    @constructorMock.returns(@hubotYadt)
 
     requireProxy =
       './hubot-yadt': @constructorMock
@@ -22,4 +22,4 @@ describe 'yadt-hubot script', ->
     @constructorMock.should.have.been.calledOnce
 
   it 'starts the yadt hubot instance', ->
-    @yadtHubot.start.should.have.been.calledOnce
+    @hubotYadt.start.should.have.been.calledOnce

@@ -2,7 +2,7 @@ Log = require 'log'
 YadtBroadcaster = require './yadt-broadcaster'
 CmdHandler = require './yadt-cmd-event-handler'
 
-class YadtHubot
+class HubotYadt
   constructor: (robot) ->
     @robot = robot
     @logger = new Log process.env.HUBOT_LOG_LEVEL or 'info'
@@ -32,4 +32,4 @@ class YadtHubot
     if not @loadConfigFile() == undefined
       @initYadtBroadcaster()
 
-module.exports = YadtHubot
+module.exports = HubotYadt
