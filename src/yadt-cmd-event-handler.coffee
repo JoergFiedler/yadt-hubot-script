@@ -1,11 +1,11 @@
 Log = require 'log'
 RoomSelector = require('./room-selector')
+utils = require "./utils"
 
 class CmdEventHandler
   constructor: (robot) ->
     @robot = robot
     @roomSelector = new RoomSelector()
-    @logger = new Log process.env.HUBOT_LOG_LEVEL or 'info'
 
   createMessage: (event) ->
     "Yadt action '#{event.cmd}' for target '#{event.target}' has been '#{event.state}'."
@@ -19,7 +19,7 @@ class CmdEventHandler
 
   handleEvent: (event) ->
     if event.id and event.id == 'cmd'
-      @logger.debug 'Event received:', event.target, event.cmd, event.state
+      utils.logger.debug 'Event received:', event.target, event.cmd, event.state
       @sendResponse(event)
 
 module.exports = CmdEventHandler
