@@ -3,7 +3,7 @@
 
 Subscribes itself one or more topics provided by a [YaDT](http://www.yadt-project.org/) broadcaster and publishes those notifications. So far only `cmd` notification are supported.
 
-See [`src/yadt-hubot-script.coffee`](src/yadt-hubot-script.coffee) for further documentation.
+See [`src/hubot-yadt-script.coffee`](src/hubot-yadt-script.coffee) for further documentation.
 
 ## Installation
 
@@ -23,6 +23,27 @@ Add **yadt-hubot-script** to your `external-scripts.json`:
 ```
 
 Run `npm install`
+
+## Configuration
+
+Create a config file (coffeescript) somewhere a set the environment
+variable `HUBOT_YADT_CONFIG` to that file.
+
+Sample config file.
+
+    exports.broadcasterUrl = 'ws://host:port'
+    exports.channelConfig = [
+      {
+        regex: "/^abc.*/i"
+        room: "#abc-channel" },
+      {
+        regex: "/evil.*/i" },
+      {
+        regex: "/.*/"
+        room: 'default' }
+    ]
+    exports.topics = ['dev-machines']
+
 
 ## Sample Interaction
 
