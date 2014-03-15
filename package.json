@@ -2,8 +2,8 @@
   "name": "yadt-hubot",
   "description": "Connects to a yadt broadcaster and sends notification to an IRC channel in case something interesting happens.",
   "version": "0.0.5",
-  "author": "JoergFiedler <joerg.fiedler@moumantai.de>",
-  "license": "MIT",
+  "author": "JoergFiedler <joerg.fiedler@mmobilienscout24.de>",
+  "license": "BSD",
   "keywords": [
     "hubot",
     "hubot-script",
@@ -11,10 +11,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/hubot-scripts/hubot-example.git"
+    "url": "git@github.com:JoergFiedler/yadt-hubot-script.git"
   },
   "bugs": {
-    "url": "https://github.com/hubot-scripts/hubot-example/issues"
+    "url": "https://github.com/JoergFiedler/yadt-hubot-script/issues"
   },
   "dependencies": {
     "coffee-script": "~1.6",
@@ -29,7 +29,8 @@
     "grunt-mocha-test": "~0.7.0",
     "grunt-release": "~0.6.0",
     "matchdep": "~0.1.2",
-    "grunt-contrib-watch": "~0.5.3"
+    "grunt-contrib-watch": "~0.5.3",
+    "proxyquire": "~0.5.3"
   },
   "main": "index.coffee",
   "scripts": {
