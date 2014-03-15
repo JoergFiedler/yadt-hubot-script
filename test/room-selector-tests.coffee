@@ -1,26 +1,24 @@
 chai = require 'chai'
 sinon = require 'sinon'
 chai.use require 'sinon-chai'
+expect = chai.should
 
-expect = chai.expect
 RoomSelector = require('../src/room-selector')
+utils = require '../src/utils'
 
 describe 'RoomSelector', ->
+  loadConfigFile = sinon.stub(utils, 'loadConfigFile')
+
   beforeEach ->
+    config = require './room-selector-tests-config.coffee'
+    loadConfigFile.returns(config)
     @roomSelector = new RoomSelector()
 
-  it 'returns dev envelope for dev targets', ->
-    expect(@roomSelector.createEnvelope('devitl01')).to.deep.equal({room: '#it-dev-events'})
+  it 'returns dev room for dev targets', ->
+    @roomSelector.createEnvelope('dev-machines').should.be.equal('#dev-room')
 
-  it 'returns tuv envelope for tuv targets', ->
-    expect(@roomSelector.createEnvelope('tuvitl01')).to.deep.equal({room: '#it-tuv-events'})
+  it 'returns empty room for matched targets without room definition', ->
+    @roomSelector.createEnvelope('skipped').should.be.equal('')
 
-  it 'returns pro envelope for ber targets', ->
-    expect(@roomSelector.createEnvelope('beritl01')).to.deep.equal({room: '#it-pro-events'})
-
-  it 'returns pro envelope for ham targets', ->
-    expect(@roomSelector.createEnvelope('hamitl01')).to.deep.equal({room: '#it-pro-events'})
-
-  it 'returns undefined for unknown targets', ->
-    expect(@roomSelector.createEnvelope('septl01')).to.equal(undefined)
-
+  it 'returns default room for all other targets', ->
+    @roomSelector.createEnvelope('any-other').should.be.equal('#default-room')

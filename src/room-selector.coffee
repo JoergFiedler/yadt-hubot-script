@@ -1,22 +1,21 @@
+utils = require './utils'
+
 class RoomSelector
 
   constructor: ->
-    @devPattern = /^dev.*/i
-    @tuvPattern = /^tuv.*/i
-    @proPattern = /^(ber|ham).*/i
+    configFile = utils.loadConfigFile()
+    @channelConfigs = configFile.channelConfig
 
   createEnvelope: (target) ->
-    if @devPattern.test target
-      room = '#it-dev-events'
-    else if @tuvPattern.test target
-      room = '#it-tuv-events'
-    else if @proPattern.test target
-      room = '#it-pro-events'
+    room = ''
+    for channelConfig in @channelConfigs
+      if @matches(channelConfig.regex, target)
+        room = channelConfig.room or ''
+        break
 
-    if room
-      envelope =
-        room: room
+    return room
 
-    return envelope
+  matches: (regex, target) ->
+    new RegExp(regex).test target
 
 module.exports = RoomSelector
