@@ -5,21 +5,24 @@ sinon = require 'sinon'
 
 describe 'YadtBroadcaster', ->
   wamp = require 'cupholder'
-  clientConstructorStub = sinon.stub(wamp, 'Client')
   YadtBroadcaster = require '../src/yadt-broadcaster'
 
   beforeEach ->
+    @clientConstructorStub = sinon.stub(wamp, 'Client')
     @clientSpy =
       on: sinon.spy()
       subscribe: sinon.spy()
-    clientConstructorStub.returns(@clientSpy)
+    @clientConstructorStub.returns(@clientSpy)
+
+  afterEach ->
+    @clientConstructorStub.restore()
 
   describe 'connect()', ->
     it 'creates a new wamp.Client with given URL', ->
       url = 'any-url'
       new YadtBroadcaster(url).connect()
 
-      clientConstructorStub.should.have.been.calledWith(url)
+      @clientConstructorStub.should.have.been.calledWith(url)
 
     it 'registers an listener on event "open"', ->
       new YadtBroadcaster('url').connect()

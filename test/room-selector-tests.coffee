@@ -7,12 +7,15 @@ RoomSelector = require('../src/room-selector')
 utils = require '../src/utils'
 
 describe 'RoomSelector', ->
-  loadConfigFile = sinon.stub(utils, 'loadConfigFile')
 
   beforeEach ->
+    @loadConfigFile = sinon.stub(utils, 'loadConfigFile')
     config = require './room-selector-tests-config.coffee'
-    loadConfigFile.returns(config)
+    @loadConfigFile.returns(config)
     @roomSelector = new RoomSelector()
+
+  afterEach ->
+    @loadConfigFile.restore()
 
   it 'returns dev room for dev targets', ->
     @roomSelector.createEnvelope('dev-machines').should.be.equal('#dev-room')
