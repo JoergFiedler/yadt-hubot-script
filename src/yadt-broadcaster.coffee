@@ -15,14 +15,14 @@ class YadtBroadcaster
     for topic in @topics
       client.subscribe topic
 
-    @logger.info 'Subscribed to topics:', @topics
+    @logger.debug 'Subscribed to topics:', @topics
 
   onEvent: (uri, event) ->
     for handler in @handlers
       handler.handleEvent(event)
 
   connect: ->
-    @logger.info('Connect to: ', @url)
+    @logger.debug('Connect to: ', @url)
     ybc = @
     client = new wamp.Client @url
     client.on "open", ->
