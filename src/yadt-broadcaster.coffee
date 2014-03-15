@@ -1,6 +1,6 @@
-Log = require "log"
-wamp = require "cupholder"
-utils = require "./utils"
+Log = require 'log'
+wamp = require 'cupholder'
+utils = require './utils'
 
 class YadtBroadcaster
   constructor: (url, topics) ->

@@ -1,6 +1,6 @@
 Log = require 'log'
-RoomSelector = require('./room-selector')
-utils = require "./utils"
+RoomSelector = require './room-selector'
+utils = require './utils'
 
 class CmdEventHandler
   constructor: (robot) ->
