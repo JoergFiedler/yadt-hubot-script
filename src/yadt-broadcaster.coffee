@@ -6,7 +6,6 @@ class YadtBroadcaster
     @logger = new Log process.env.HUBOT_LOG_LEVEL or 'info'
     @url = url
     @topics = topics or []
-    @ws_port = 8081
     @handlers = []
 
   setHandlers: (handlers) ->
