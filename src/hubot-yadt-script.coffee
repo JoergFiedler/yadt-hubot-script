@@ -17,17 +17,18 @@
 #   to it and provide you with notifications about events on topics you
 #   subscribed.
 #
-#   Sample configuration file which must be provided (HUBOT_YADT_CONFIG).
+#   Sample configuration file which must be provided. Export the file name
+#   via HUBOT_YADT_CONFIG environment variable.
 #
 #      exports.broadcasterUrl = 'ws://host:port'
 #      exports.channelConfig = [
 #        {
-#          regex: "/^abc.*/i"
+#          regex: /^abc.*/i
 #          room: "#abc-channel" },
 #        {
-#          regex: "/evil.*/i" },
+#          regex: /evil.*/i },
 #        {
-#          regex: "/.*/"
+#          regex: /.*/
 #          room: 'default'
 #        }
 #      ]
