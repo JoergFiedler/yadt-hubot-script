@@ -29,17 +29,19 @@ Run `npm install`
 Create a config file (coffeescript) somewhere a set the environment
 variable `HUBOT_YADT_CONFIG` to that file.
 
+    export HUBOT_YADT_CONFIG=/path/to/file
+
 Sample config file.
 
     exports.broadcasterUrl = 'ws://host:port'
     exports.channelConfig = [
       {
-        regex: "/^abc.*/i"
+        regex: /^abc.*/i
         room: "#abc-channel" },
       {
-        regex: "/evil.*/i" },
+        regex: /evil.*/i },
       {
-        regex: "/.*/"
+        regex: /.*/
         room: 'default' }
     ]
     exports.topics = ['dev-machines']
