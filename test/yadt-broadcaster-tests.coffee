@@ -5,7 +5,7 @@ sinon = require 'sinon'
 
 describe 'YadtBroadcaster', ->
   wamp = require 'cupholder'
-  YadtBroadcaster = require '../src/yadt-broadcaster'
+  YadtBroadcaster = require '../lib/yadt-broadcaster'
 
   beforeEach ->
     @clientConstructorStub = sinon.stub(wamp, 'Client')

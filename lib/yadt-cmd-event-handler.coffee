@@ -1,8 +1,9 @@
 Log = require 'log'
 RoomSelector = require './room-selector'
-utils = require './utils'
+logger = require('./utils').logger
 
 class CmdEventHandler
+
   constructor: (robot) ->
     @robot = robot
     @roomSelector = new RoomSelector()
@@ -12,14 +13,15 @@ class CmdEventHandler
 
   sendResponse: (event) ->
     room = @roomSelector.createEnvelope(event.target)
+    logger.debug('Room:', room)
     if room
       @robot.send {'room': room}, @createMessage(event)
     else
-      @logger.warn "No room for target '#{event.target}' configured."
+      logger.warning "No room for target '#{event.target}' configured."
 
   handleEvent: (event) ->
     if event.id and event.id == 'cmd'
-      utils.logger.debug 'Event received:', event.target, event.cmd, event.state
+      logger.debug 'Event received:', event.target, event.cmd, event.state
       @sendResponse(event)
 
 module.exports = CmdEventHandler

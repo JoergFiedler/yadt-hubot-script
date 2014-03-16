@@ -5,9 +5,9 @@ sinon = require 'sinon'
 proxyquire = require 'proxyquire'
 
 describe 'HubotYadt', ->
-  utils = require '../src/utils'
-  YadtBroadcaster = require '../src/yadt-broadcaster'
-  CmdEventHandler = require '../src/yadt-cmd-event-handler'
+  utils = require '../lib/utils'
+  YadtBroadcaster = require '../lib/yadt-broadcaster'
+  CmdEventHandler = require '../lib/yadt-cmd-event-handler'
 
   describe 'start()', ->
     beforeEach ->
@@ -26,7 +26,7 @@ describe 'HubotYadt', ->
         @loadConfigFile.returns(@config)
         moduleStub =
           './yadt-broadcaster': @constructorStub
-        HubotYadt = proxyquire('../src/hubot-yadt', moduleStub)
+        HubotYadt = proxyquire('../lib/hubot-yadt', moduleStub)
         @hubotYadt = new HubotYadt(robot)
         @hubotYadt.start()
 
@@ -52,7 +52,7 @@ describe 'HubotYadt', ->
         @loadConfigFile.returns(undefined)
         moduleStub =
           './yadt-broadcaster': @constructorStub
-        HubotYadt = proxyquire('../src/hubot-yadt', moduleStub)
+        HubotYadt = proxyquire('../lib/hubot-yadt', moduleStub)
         @hubotYadt = new HubotYadt(robot)
         @hubotYadt.start()
 

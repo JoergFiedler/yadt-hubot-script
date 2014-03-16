@@ -36,7 +36,7 @@
 # Author:
 #   JoergFiedler[@immobilienscout24.de]
 
-HubotYadt = require './hubot-yadt'
+HubotYadt = require '../lib/hubot-yadt'
 
 module.exports = (robot) ->
   new HubotYadt(robot).start()

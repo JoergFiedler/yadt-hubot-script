@@ -6,7 +6,7 @@ sinon = require 'sinon'
 Log = require 'log'
 
 describe 'utils', ->
-  utils = require '../src/utils'
+  utils = require '../lib/utils'
 
   it 'configures logger', ->
     utils.logger.should.be.instanceOf(Log)

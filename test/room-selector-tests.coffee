@@ -5,8 +5,8 @@ expect = chai.should
 
 
 describe 'RoomSelector', ->
-  RoomSelector = require '../src/room-selector'
-  utils = require '../src/utils'
+  RoomSelector = require '../lib/room-selector'
+  utils = require '../lib/utils'
 
   beforeEach ->
     @loadConfigFile = sinon.stub(utils, 'loadConfigFile')
