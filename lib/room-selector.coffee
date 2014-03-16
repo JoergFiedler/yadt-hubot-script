@@ -7,13 +7,13 @@ class RoomSelector
     @channelConfigs = configFile.channelConfig
 
   createEnvelope: (target) ->
-    room = ''
+    rooms = []
     for channelConfig in @channelConfigs
       if @matches(channelConfig.regex, target)
-        room = channelConfig.room or ''
+        rooms = channelConfig.rooms or []
         break
 
-    return room
+    return rooms
 
   matches: (regex, target) ->
     new RegExp(regex).test target

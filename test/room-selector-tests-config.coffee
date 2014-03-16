@@ -1,13 +1,13 @@
 exports.channelConfig = [
   {
     regex: /dev.*/
-    room: '#dev-room'
+    rooms: ['#dev-room', '#ops-rooms']
   },
   {
     regex: /skipped/
   },
   {
     regex: /.*/
-    room: '#default-room'
+    rooms: ['#devops-room']
   }
 ]

@@ -12,11 +12,10 @@ class CmdEventHandler
     "Yadt action '#{event.cmd}' for target '#{event.target}' has been '#{event.state}'."
 
   sendResponse: (event) ->
-    room = @roomSelector.createEnvelope(event.target)
-    logger.debug('Room:', room)
-    if room
+    rooms = @roomSelector.createEnvelope(event.target)
+    for room in rooms
       @robot.send {'room': room}, @createMessage(event)
-    else
+    if not rooms
       logger.warning "No room for target '#{event.target}' configured."
 
   handleEvent: (event) ->

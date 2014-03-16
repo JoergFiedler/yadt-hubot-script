@@ -18,10 +18,10 @@ describe 'RoomSelector', ->
     @loadConfigFile.restore()
 
   it 'returns dev room for dev targets', ->
-    @roomSelector.createEnvelope('dev-machines').should.be.equal('#dev-room')
+    @roomSelector.createEnvelope('dev-machines').should.be.deep.equal(['#dev-room', '#ops-rooms'])
 
   it 'returns empty room for matched targets without room definition', ->
-    @roomSelector.createEnvelope('skipped').should.be.equal('')
+    @roomSelector.createEnvelope('skipped').should.be.deep.equal([])
 
   it 'returns default room for all other targets', ->
-    @roomSelector.createEnvelope('any-other').should.be.equal('#default-room')
+    @roomSelector.createEnvelope('any-other').should.be.deep.equal(['#devops-room'])

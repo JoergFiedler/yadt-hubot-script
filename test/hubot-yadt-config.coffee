@@ -2,11 +2,11 @@ exports.broadcasterUrl = 'ws://host:port'
 exports.channelConfig = [
   {
     regex: "/^abc.*/i"
-    room: "#abc-channel" },
+    rooms: ["#abc-channel"] },
   {
     regex: "/evil.*/i" },
   {
     regex: "/.*/"
-    room: 'default' }
+    rooms: ['default'] }
 ]
 exports.topics = ['dev-machines']

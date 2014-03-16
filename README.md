@@ -36,13 +36,13 @@ Sample config file.
     exports.broadcasterUrl = 'ws://host:port'
     exports.channelConfig = [
       {
-        regex: /^abc.*/i
-        room: "#abc-channel" },
+        regex: /^dev.*/i
+        rooms: ["#dev-channel", "#ops-channel"] },
       {
         regex: /evil.*/i },
       {
         regex: /.*/
-        room: 'default' }
+        rooms: ["#devops-channel"] }
     ]
     exports.topics = ['dev-machines']
 
