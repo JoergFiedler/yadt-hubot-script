@@ -3,10 +3,10 @@ sinon = require 'sinon'
 chai.use require 'sinon-chai'
 expect = chai.should
 
-RoomSelector = require '../src/room-selector'
-utils = require '../src/utils'
 
 describe 'RoomSelector', ->
+  RoomSelector = require '../src/room-selector'
+  utils = require '../src/utils'
 
   beforeEach ->
     @loadConfigFile = sinon.stub(utils, 'loadConfigFile')

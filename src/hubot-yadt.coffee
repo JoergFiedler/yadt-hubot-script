@@ -1,12 +1,11 @@
 Log = require 'log'
 YadtBroadcaster = require './yadt-broadcaster'
 CmdEventHandler = require './yadt-cmd-event-handler'
-utils = require './utils.coffee'
+utils = require './utils'
 
 class HubotYadt
   constructor: (robot) ->
     @robot = robot
-    @configFile = process.env.HUBOT_YADT_CONFIG
 
   createHandler: ->
     [
@@ -23,7 +22,7 @@ class HubotYadt
 
   start: ->
     config = utils.loadConfigFile()
-    if not config == undefined
+    if config != undefined
       @initYadtBroadcaster(config)
 
 module.exports = HubotYadt
