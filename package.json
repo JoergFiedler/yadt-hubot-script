@@ -30,7 +30,8 @@
     "grunt-release": "~0.6.0",
     "matchdep": "~0.1.2",
     "grunt-contrib-watch": "~0.5.3",
-    "proxyquire": "~0.5.3"
+    "proxyquire": "~0.5.3",
+    "rewire": "~2.0.0"
   },
   "main": "index.coffee",
   "scripts": {
