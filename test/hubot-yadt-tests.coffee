@@ -62,6 +62,3 @@ describe 'HubotYadt', ->
       it 'does nothing', ->
         @loadConfigFile.returns(undefined)
         @constructorStub.should.not.have.been.called
-
-
-

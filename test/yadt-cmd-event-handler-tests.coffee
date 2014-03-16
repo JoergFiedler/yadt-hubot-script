@@ -52,5 +52,3 @@ describe 'CmdEventHandler', ->
 
         it 'does not send the message', ->
           @robot.send.should.not.have.been.called
-
-
