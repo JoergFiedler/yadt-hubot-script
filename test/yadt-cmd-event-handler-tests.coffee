@@ -39,7 +39,43 @@ describe 'CmdEventHandler', ->
         it 'sends no message', ->
           @robot.send.should.not.have.been.called
 
-      describe 'and event.status != "status"', ->
+      describe 'and event.status in whitelist', ->
+
+        beforeEach ->
+          @roomSelector.createEnvelope.returns(['1'])
+          @whiteListedEvent =
+            id: 'cmd'
+
+        it 'handles event "update"', ->
+          @whiteListedEvent.cmd = 'update'
+          @cmdEventHandler.handleEvent(@whiteListedEvent)
+          @robot.send.should.have.been.calledOnce
+
+        it 'handles event "start"', ->
+          @whiteListedEvent.cmd = 'start'
+          @cmdEventHandler.handleEvent(@whiteListedEvent)
+          @robot.send.should.have.been.calledOnce
+
+        it 'handles event "stop"', ->
+          @whiteListedEvent.cmd = 'stop'
+          @cmdEventHandler.handleEvent(@whiteListedEvent)
+          @robot.send.should.have.been.calledOnce
+
+        it 'handles event "yadtshell udpdate"', ->
+          @whiteListedEvent.cmd = '/usr/bin/python /usr/bin/yadtshell update'
+          @cmdEventHandler.handleEvent(@whiteListedEvent)
+          @robot.send.should.have.been.calledOnce
+        it 'handles event "yadtshell start"', ->
+
+          @whiteListedEvent.cmd = '/usr/bin/python /usr/bin/yadtshell update'
+          @cmdEventHandler.handleEvent(@whiteListedEvent)
+          @robot.send.should.have.been.calledOnce
+
+        it 'handles event "yadtshell stop"', ->
+          @whiteListedEvent.cmd = '/usr/bin/python /usr/bin/yadtshell update'
+          @cmdEventHandler.handleEvent(@whiteListedEvent)
+          @robot.send.should.have.been.calledOnce
+
         describe 'and rooms from rooms selector', ->
           beforeEach ->
             @roomSelector.createEnvelope.returns(['1', '2'])

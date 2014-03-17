@@ -19,9 +19,11 @@ class CmdEventHandler
       logger.warning "No room for target '#{event.target}' configured."
 
   handleEvent: (event) ->
-    logger.debug 'Event:', event
-    if event.id and event.id == 'cmd' and event.cmd in ['update', 'stop', 'start']
-      logger.debug 'Event received:', event.target, event.cmd, event.state
+    if event.id and event.id == 'cmd' and @matchesWhitelist(event.cmd)
+      logger.debug 'Event received:', event
       @sendResponse(event)
+
+  matchesWhitelist: (cmd) ->
+    new RegExp(/(.*yadtshell\s)?(update|stop|start)/).test cmd
 
 module.exports = CmdEventHandler
