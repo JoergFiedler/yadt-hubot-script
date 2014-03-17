@@ -2,39 +2,41 @@ chai = require 'chai'
 chai.should()
 chai.use require 'sinon-chai'
 sinon = require 'sinon'
-proxyquire = require 'proxyquire'
+rewire = require 'rewire'
 
 describe 'HubotYadt', ->
   utils = require '../lib/utils'
   YadtBroadcaster = require '../lib/yadt-broadcaster'
   CmdEventHandler = require '../lib/yadt-cmd-event-handler'
+  HubotYadt =  rewire '../lib/hubot-yadt'
 
   describe 'start()', ->
+
     beforeEach ->
-      @yadtBroadcaster = sinon.createStubInstance(YadtBroadcaster)
-      @constructorStub = sinon.stub()
-      @constructorStub.returns(@yadtBroadcaster)
+      @robot = sinon.mock()
+      @yadtBroadcaster =
+        setHandlers: sinon.stub()
+        connect: sinon.stub()
+      @constructorMock = sinon.stub()
+      @constructorMock.returns(@yadtBroadcaster)
+      @config =
+        broadcasterUrl: 'ws://host:port'
+        topics: ['topic']
+      HubotYadt.__set__('YadtBroadcaster', @constructorMock)
+      @loadConfigFile = sinon.stub(utils, 'loadConfigFile')
+      @loadConfigFile.returns(@config)
+
+    afterEach ->
+      @loadConfigFile.restore()
 
     describe 'if config is loaded', ->
 
       beforeEach ->
-        robot = sinon.mock()
-        @config =
-          broadcasterUrl: 'ws://host:port'
-          topics: ['topic']
-        @loadConfigFile = sinon.stub(utils, 'loadConfigFile')
-        @loadConfigFile.returns(@config)
-        moduleStub =
-          './yadt-broadcaster': @constructorStub
-        HubotYadt = proxyquire('../lib/hubot-yadt', moduleStub)
-        @hubotYadt = new HubotYadt(robot)
+        @hubotYadt = new HubotYadt(@robot)
         @hubotYadt.start()
 
-      afterEach ->
-        @loadConfigFile.restore()
-
       it 'creates the yadt broadcaster if the config file was loaded', ->
-        @constructorStub.should.have.been.calledWith(@config.broadcasterUrl, @config.topics)
+        @constructorMock.should.have.been.calledWith(@config.broadcasterUrl, @config.topics)
 
       it 'sets the event handlers', ->
         @yadtBroadcaster.setHandlers.should.have.been.calledOnce
@@ -47,18 +49,9 @@ describe 'HubotYadt', ->
     describe 'if no config is loaded', ->
 
       beforeEach ->
-        robot = sinon.mock()
-        @loadConfigFile = sinon.stub(utils, 'loadConfigFile')
         @loadConfigFile.returns(undefined)
-        moduleStub =
-          './yadt-broadcaster': @constructorStub
-        HubotYadt = proxyquire('../lib/hubot-yadt', moduleStub)
-        @hubotYadt = new HubotYadt(robot)
+        @hubotYadt = new HubotYadt(@robot)
         @hubotYadt.start()
 
-      afterEach ->
-        @loadConfigFile.restore()
-
       it 'does nothing', ->
-        @loadConfigFile.returns(undefined)
-        @constructorStub.should.not.have.been.called
+        @constructorMock.should.not.have.been.called
