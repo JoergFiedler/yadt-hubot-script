@@ -5,6 +5,7 @@
 # Dependencies
 #   "log": "1.4.0",
 #   "cupholder": "0.1.0-alpha"
+#   "javascript-state-machine": "2.3.2"
 #
 # Configuration:
 #   HUBOT_YADT_CONFIG
