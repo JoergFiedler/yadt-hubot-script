@@ -48,11 +48,12 @@ describe 'CmdEventHandler', ->
 
           @robot.send.should.not.have.been.called
 
-      describe 'and event.cmd in whitelist', ->
+      describe 'and event.state == "failed"', ->
         whiteListedEvent =
           id: 'cmd'
+          cmd: 'update'
           state: 'failed'
-          target: 'whitelisted'
+          target: 'target'
 
         beforeEach ->
           @roomSelector.createEnvelope.returns(['1'])
@@ -60,7 +61,7 @@ describe 'CmdEventHandler', ->
         it 'handles event "status"', ->
           whiteListedEvent.cmd = 'status'
           @cmdEventHandler.handleEvent(whiteListedEvent)
-          @robot.send.should.not.have.been.called
+          @robot.send.should.have.been.called
 
         it 'handles event "update"', ->
           whiteListedEvent.cmd = 'update'
@@ -77,34 +78,25 @@ describe 'CmdEventHandler', ->
           @cmdEventHandler.handleEvent(whiteListedEvent)
           @robot.send.should.have.been.calledOnce
 
-        it 'handles event "yadtshell udpdate"', ->
+        it 'handles event "yadtshell update"', ->
           whiteListedEvent.cmd = '/usr/bin/python /usr/bin/yadtshell update'
           @cmdEventHandler.handleEvent(whiteListedEvent)
           @robot.send.should.have.been.calledOnce
 
         it 'handles event "yadtshell start"', ->
-          whiteListedEvent.cmd = '/usr/bin/python /usr/bin/yadtshell update'
+          whiteListedEvent.cmd = '/usr/bin/python /usr/bin/yadtshell start'
           @cmdEventHandler.handleEvent(whiteListedEvent)
           @robot.send.should.have.been.calledOnce
 
         it 'handles event "yadtshell stop"', ->
-          whiteListedEvent.cmd = '/usr/bin/python /usr/bin/yadtshell update'
+          whiteListedEvent.cmd = '/usr/bin/python /usr/bin/yadtshell stop'
           @cmdEventHandler.handleEvent(whiteListedEvent)
           @robot.send.should.have.been.calledOnce
-
-        describe 'and rooms from rooms selector and event.state != "failed"', ->
-          it 'calls not robot if event.state !="failed"', ->
-            event =
-              id: 'id'
-              cmd: 'update'
-              state: 'start'
-            @roomSelector.createEnvelope.returns(['1'])
-            @cmdEventHandler.handleEvent(event)
-            @robot.send.should.not.have.been.called
 
         describe 'and rooms from rooms selector', ->
           beforeEach ->
             @roomSelector.createEnvelope.returns(['1', '2'])
+            whiteListedEvent.cmd = 'update'
             @cmdEventHandler.handleEvent(whiteListedEvent)
 
           it 'calls robot to send a message', ->
@@ -114,7 +106,7 @@ describe 'CmdEventHandler', ->
             call = @robot.send.getCall(0)
             should.exist(call, 'send should be called')
             should.exist(call.args[1], 'send should be called with message param')
-            call.args[1].should.match(/update.*whitelisted.*failed/)
+            call.args[1].should.match(/update.*target.*failed/)
 
           it 'creates an envelop for the message', ->
             call = @robot.send.getCall(0)
