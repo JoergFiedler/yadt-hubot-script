@@ -20,7 +20,7 @@ class CmdEventHandler
 
   handleEvent: (event) ->
     logger.debug 'Event:', event
-    if event.id and event.id == 'cmd' and event.cmd != 'status'
+    if event.id and event.id == 'cmd' and event.cmd in ['update', 'stop', 'start']
       logger.debug 'Event received:', event.target, event.cmd, event.state
       @sendResponse(event)
 
