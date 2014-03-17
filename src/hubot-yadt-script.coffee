@@ -40,4 +40,8 @@
 HubotYadt = require '../lib/hubot-yadt'
 
 module.exports = (robot) ->
+  robot.respond /yadt status/i, (msg) ->
+
+
   new HubotYadt(robot).start()
+
