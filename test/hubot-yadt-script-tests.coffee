@@ -1,20 +1,20 @@
 chai = require 'chai'
 chai.should()
 chai.use require 'sinon-chai'
-proxyquire = require 'proxyquire'
+rewire = require 'rewire'
 sinon = require 'sinon'
 
 describe 'yadt-hubot script', ->
+  script = rewire '../src/hubot-yadt-script'
+
   beforeEach ->
-    HubotYadt = require '../lib/hubot-yadt'
     robot = sinon.mock()
-    @hubotYadt = sinon.createStubInstance(HubotYadt)
+    @hubotYadt =
+      start: sinon.spy()
     @constructorMock = sinon.stub()
     @constructorMock.returns(@hubotYadt)
 
-    requireProxy =
-      '../lib/hubot-yadt': @constructorMock
-    script = proxyquire('../src/hubot-yadt-script', requireProxy)
+    script.__set__({'HubotYadt': @constructorMock })
 
     script(robot)
 
