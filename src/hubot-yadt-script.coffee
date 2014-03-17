@@ -10,7 +10,9 @@
 #   HUBOT_YADT_CONFIG
 #
 # Commands:
-#   None.
+#   yadt status <target>:
+#     calls yadt status for the given target and provides the caller with
+#     the current target's machines status
 #
 # Notes:
 #   You need a running Yadt broadcaster instance. The script will connect
