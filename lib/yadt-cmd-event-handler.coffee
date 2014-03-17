@@ -19,7 +19,8 @@ class CmdEventHandler
       logger.warning "No room for target '#{event.target}' configured."
 
   handleEvent: (event) ->
-    if event.id and event.id == 'cmd'
+    logger.debug 'Event:', event
+    if event.id and event.id == 'cmd' and event.cmd != 'status'
       logger.debug 'Event received:', event.target, event.cmd, event.state
       @sendResponse(event)
 

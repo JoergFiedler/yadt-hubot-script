@@ -8,7 +8,7 @@ describe 'CmdEventHandler', ->
   CmdEventHandler = rewire '../lib/yadt-cmd-event-handler'
   event =
     id: 'cmd'
-    cmd: 'status'
+    cmd: 'update'
     target: 'target'
     state: 'state'
 
@@ -28,24 +28,35 @@ describe 'CmdEventHandler', ->
         @cmdEventHandler.handleEvent(event)
         @roomSelector.createEnvelope.should.have.been.calledWith('target')
 
-      describe 'and rooms from rooms selector', ->
+      describe 'and event.status == "status"', ->
         beforeEach ->
-          @roomSelector.createEnvelope.returns(['1', '2'])
-          @cmdEventHandler.handleEvent(event)
+          statusEvent =
+            id: 'id'
+            status: 'status'
+          @roomSelector.createEnvelope.returns(['1'])
+          @cmdEventHandler.handleEvent(statusEvent)
 
-        it 'calls robot to send a message', ->
-          @robot.send.should.have.been.calledTwice
+        it 'sends no message', ->
+          @robot.send.should.not.have.been.called
 
-        it 'creates a message containing the event details', ->
-          message = @robot.send.getCall(0).args[1]
-          message.should.match(/status.*target.*state/)
+      describe 'and event.status != "status"', ->
+        describe 'and rooms from rooms selector', ->
+          beforeEach ->
+            @roomSelector.createEnvelope.returns(['1', '2'])
+            @cmdEventHandler.handleEvent(event)
 
-        it 'creates an envelop for the message', ->
-          message = @robot.send.getCall(0).args[0]
-          message.should.be.eql({room: '1'})
+          it 'calls robot to send a message', ->
+            @robot.send.should.have.been.calledTwice
+
+          it 'creates a message containing the event details', ->
+            message = @robot.send.getCall(0).args[1]
+            message.should.match(/update.*target.*state/)
+
+          it 'creates an envelop for the message', ->
+            message = @robot.send.getCall(0).args[0]
+            message.should.be.eql({room: '1'})
 
       describe 'and no rooms from selector', ->
-
         beforeEach ->
           @roomSelector.createEnvelope.returns([])
           @cmdEventHandler.handleEvent(event)
