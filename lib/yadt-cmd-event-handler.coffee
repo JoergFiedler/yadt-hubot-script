@@ -9,12 +9,18 @@ class CmdEventHandler
     @roomSelector = new RoomSelector()
 
   createMessage: (event) ->
-    "Yadt action '#{event.cmd}' for target '#{event.target}' has been '#{event.state}'."
+    command = event.cmd
+    if /(.*yadtshell\s)?update/.test event.cmd # shorten message from yadt shell sources
+      command = 'update'
+
+    if 'failed' == event.state
+      return "Yadt action '#{command}' for target '#{event.target}' has been '#{event.state}'."
 
   sendResponse: (event) ->
     rooms = @roomSelector.createEnvelope(event.target)
     for room in rooms
-      @robot.send {'room': room}, @createMessage(event)
+      message = @createMessage(event)
+      @robot.send({'room': room}, message) if message
     if not rooms
       logger.warning "No room for target '#{event.target}' configured."
 
