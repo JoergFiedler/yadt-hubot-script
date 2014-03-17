@@ -27,7 +27,8 @@ describe 'yadt-hubot script', ->
       @hubotYadt.start.should.have.been.calledOnce
 
     it 'registers an callback for "yadt status" command', ->
-      @robot.respond.should.have.been.calledWith(/yadt status/i, sinon.match.typeOf('function'))
+      @robot.respond.should.have.been.calledWith(/yadt status\s([\S]+)/i,
+                                                 sinon.match.typeOf('function'))
 
     describe 'on "yadt status" command', ->
       beforeEach ->
