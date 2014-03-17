@@ -17,8 +17,8 @@ describe 'CmdEventHandler', ->
     @robot =
       send: sinon.spy()
     @roomSelector =
-      createEnvelope: sinon.stub()
-    @roomSelector.createEnvelope.returns([])
+      getRooms: sinon.stub()
+    @roomSelector.getRooms.returns([])
     constructor = sinon.stub().returns(@roomSelector)
     CmdEventHandler.__set__({'RoomSelector': constructor })
     @cmdEventHandler = new CmdEventHandler(@robot)
@@ -27,14 +27,14 @@ describe 'CmdEventHandler', ->
     describe 'event =="cmd"', ->
       it 'calls room selector using the target from event', ->
         @cmdEventHandler.handleEvent(event)
-        @roomSelector.createEnvelope.should.have.been.calledWith('target')
+        @roomSelector.getRooms.should.have.been.calledWith('target')
 
       describe 'and event.state != "failed"', ->
         statusEvent =
           id: 'id'
 
         beforeEach ->
-          @roomSelector.createEnvelope.returns(['1'])
+          @roomSelector.getRooms.returns(['1'])
 
         it 'sends no message if state == "start"', ->
           statusEvent.state = 'start'
@@ -56,7 +56,7 @@ describe 'CmdEventHandler', ->
           target: 'target'
 
         beforeEach ->
-          @roomSelector.createEnvelope.returns(['1'])
+          @roomSelector.getRooms.returns(['1'])
 
         it 'handles event "status"', ->
           whiteListedEvent.cmd = 'status'
@@ -95,7 +95,7 @@ describe 'CmdEventHandler', ->
 
         describe 'and rooms from rooms selector', ->
           beforeEach ->
-            @roomSelector.createEnvelope.returns(['1', '2'])
+            @roomSelector.getRooms.returns(['1', '2'])
             whiteListedEvent.cmd = 'update'
             @cmdEventHandler.handleEvent(whiteListedEvent)
 
@@ -116,7 +116,7 @@ describe 'CmdEventHandler', ->
 
       describe 'and no rooms from selector', ->
         beforeEach ->
-          @roomSelector.createEnvelope.returns([])
+          @roomSelector.getRooms.returns([])
           @cmdEventHandler.handleEvent(event)
 
         it 'does not send the message', ->

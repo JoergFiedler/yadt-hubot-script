@@ -6,7 +6,7 @@ class RoomSelector
     configFile = utils.loadConfigFile()
     @channelConfigs = configFile.channelConfig
 
-  createEnvelope: (target) ->
+  getRooms: (target) ->
     rooms = []
     for channelConfig in @channelConfigs
       if @matches(channelConfig.regex, target)

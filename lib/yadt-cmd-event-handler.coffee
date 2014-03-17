@@ -18,7 +18,7 @@ class CmdEventHandler
     "Yadt action '#{command}' for target '#{event.target}' has been '#{event.state}'."
 
   sendResponse: (event) ->
-    rooms = @roomSelector.createEnvelope(event.target)
+    rooms = @roomSelector.getRooms(event.target)
     for room in rooms
       @robot.send {'room': room}, @createMessage(event)
     if not rooms
