@@ -38,10 +38,13 @@
 #   JoergFiedler[@immobilienscout24.de]
 
 HubotYadt = require '../lib/hubot-yadt'
+StatusCommand = require '../lib/yadt-status-command'
 
 module.exports = (robot) ->
-  robot.respond /yadt status/i, (msg) ->
 
+  robot.respond /yadt status/i, (msg) ->
+    command = new StatusCommand(msg)
+    command.execute()
 
   new HubotYadt(robot).start()
 
