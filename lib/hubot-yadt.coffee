@@ -16,9 +16,9 @@ class HubotYadt
     utils.logger.debug("Using yadt broadcaster url: #{config.broadcasterUrl}")
     utils.logger.debug("Topics:  #{config.topics.length}")
 
-    ybc = new YadtBroadcaster(config.broadcasterUrl, config.topics)
-    ybc.setHandlers(@createHandler())
-    ybc.connect()
+#    ybc = new YadtBroadcaster(config.broadcasterUrl, config.topics)
+#    ybc.setHandlers(@createHandler())
+#    ybc.connect()
 
   start: ->
     config = utils.loadConfigFile()

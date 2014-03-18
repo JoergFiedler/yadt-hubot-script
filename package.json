@@ -20,7 +20,8 @@
     "coffee-script": "~1.6",
     "log": "1.4.0",
     "cupholder": "0.1.0-alpha",
-    "javascript-state-machine": "2.3.2"
+    "javascript-state-machine": "2.3.2",
+    "node-uuid": "~1.4.1"
   },
   "devDependencies": {
     "mocha": "*",

@@ -44,8 +44,7 @@ HubotYadt = require '../lib/hubot-yadt'
 StatusCommand = require '../lib/yadt-status-command'
 
 module.exports = (robot) ->
-
-  robot.respond /yadt status\s([\S]+)/i, (msg) ->
+  robot.hear /([\S]+)/i, (msg) ->
     command = new StatusCommand(msg)
     command.execute()
 
