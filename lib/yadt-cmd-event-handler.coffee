@@ -15,7 +15,7 @@ class CmdEventHandler
     if /(.*yadtshell\s)?update/.test event.cmd # shorten message from yadt shell sources
       command = 'update'
 
-    "Yadt action '#{command}' for target '#{event.target}' has been '#{event.state}'."
+    "Yadt action '#{command}' for target '#{event.target}' '#{event.state}'."
 
   sendResponse: (event) ->
     rooms = @roomSelector.getRooms(event.target)
