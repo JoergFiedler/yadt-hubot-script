@@ -78,20 +78,20 @@ describe 'CmdEventHandler', ->
           @cmdEventHandler.handleEvent(whiteListedEvent)
           @robot.send.should.have.been.calledOnce
 
-        it 'handles event "yadtshell update"', ->
+        it 'does not handle event "yadtshell update"', ->
           whiteListedEvent.cmd = '/usr/bin/python /usr/bin/yadtshell update'
           @cmdEventHandler.handleEvent(whiteListedEvent)
-          @robot.send.should.have.been.calledOnce
+          @robot.send.should.not.have.been.called
 
-        it 'handles event "yadtshell start"', ->
+        it 'does not handle event "yadtshell start"', ->
           whiteListedEvent.cmd = '/usr/bin/python /usr/bin/yadtshell start'
           @cmdEventHandler.handleEvent(whiteListedEvent)
-          @robot.send.should.have.been.calledOnce
+          @robot.send.should.not.have.been.called
 
-        it 'handles event "yadtshell stop"', ->
+        it 'does not handle event "yadtshell stop"', ->
           whiteListedEvent.cmd = '/usr/bin/python /usr/bin/yadtshell stop'
           @cmdEventHandler.handleEvent(whiteListedEvent)
-          @robot.send.should.have.been.calledOnce
+          @robot.send.should.not.have.been.called
 
         describe 'and rooms from rooms selector', ->
           beforeEach ->

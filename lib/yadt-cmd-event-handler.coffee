@@ -26,7 +26,7 @@ class CmdEventHandler
 
   handleEvent: (event) ->
     logger.debug 'Event received:', event, event.payload
-    if event.id and 'cmd' == event.id and 'failed' == event.state
+    if event.id and 'cmd' == event.id and 'failed' == event.state and !(/yadt/.test event.cmd)
       @sendResponse(event)
 
 module.exports = CmdEventHandler
