@@ -1,7 +1,7 @@
 {
   "name": "yadt-hubot",
   "description": "Connects to a yadt broadcaster and sends notification to an IRC channel in case something interesting happens.",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": "JoergFiedler <joerg.fiedler@mmobilienscout24.de>",
   "license": "BSD",
   "keywords": [
